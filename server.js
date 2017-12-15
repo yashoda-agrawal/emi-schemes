@@ -51,7 +51,7 @@ function getJson(){
 
 	}
 	result_g = result;
-	var json = JSON.stringify(result);
+	var json = JSON.stringify(result, null, 3);
 	//console.log("json==="+result);
 	return json;
 }
@@ -109,7 +109,7 @@ function getEmiSchemesOnAmount(json,param){
 	}
 
 	//console.log("After filter "+JSON.stringify(filteredresult));
-	return JSON.stringify(filtered);
+	return JSON.stringify(filtered, null, 3);
 }
 //var json;
 function getHome(req,resp,json){
