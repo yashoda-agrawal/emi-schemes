@@ -3,7 +3,7 @@ var http = require('http');
 var qs = require('querystring');
 var lineByLine = require('n-readlines');
 var url = require('url');
-var port = 9000;
+var port = process.env.PORT || 8080;
 var result_g;
 function getJson(){
 	var liner = new lineByLine('data/EMI Rates - Sheet1.csv');
