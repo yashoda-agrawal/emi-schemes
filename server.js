@@ -102,8 +102,8 @@ function get405(req,resp){
 http.createServer(function (req, res) {
    var query = url.parse(req.url,true).query;
    var regex = new RegExp('\/emi-schemes\?');
-   //console.log("<<<<<<====>>>>>"+req.url);
-   //console.log("====>>>>>"+regex.test(req.url));
+   console.log("<<<<<<====>>>>>"+req.url);
+   console.log("====>>>>>"+regex.test(req.url));
    var json = getJson();
    switch(req.method){
    	case "GET":

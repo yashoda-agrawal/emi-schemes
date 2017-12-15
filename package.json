@@ -1,0 +1,33 @@
+{
+  "name": "emi-schemes",
+  "version": "1.0.0",
+  "description": "default package",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.2",
+    "jsonpath": "^1.0.0",
+    "json-easy-filter": "^0.3.1",
+    "n-readlines": "^0.2.8",
+    "json-query": "^2.2.2",
+    "query-string": "^5.0.1",
+    "url-pattern-match": "^1.0.4",
+    "node-regexp": "^0.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yashoda-agrawal/emi-schemes.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "yashoda agrawal",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/yashoda-agrawal/emi-schemes/issues"
+  },
+  "homepage": "https://github.com/yashoda-agrawal/emi-schemes#readme"
+}
