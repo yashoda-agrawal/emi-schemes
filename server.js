@@ -10,21 +10,42 @@ function getJson(){
 	var line;
 	var lineNumber = 0;
 	var result = [];
-	while (line = liner.next()) {	    
-	    if(lineNumber > 1){
-	      var obj = {};
-		  var currentline=line.toString().split(",");
+	while (line = liner.next()) {
+		var obj;
+		var tenures;
+        var currentline=line.toString().split(",");
 		  //console.log(currentline);
-		  obj["bank"] = currentline[0];
-		  var tenures = [];
+		
+
+	    if(lineNumber > 1){
+
+	      var found = false;
+		  for(var i = 0; i < result.length; i++) {
+			 if (result[i].bank == currentline[0]) {
+			       found = true;
+			       break;
+			  }
+		  }
+	      if(found == true){
+	      		obj = result[i];
+	      		tenures = obj["tenures"];
+	      }
+	      else{
+	      		obj = {};
+	      		obj["bank"] = currentline[0];
+	      		tenures = [];
+	      } 
+
+		  
 		  var innerobj = {};
 		  innerobj["months"] = currentline[1];
 		  innerobj["rate"] = currentline[2];
 		  innerobj["minimum_amount"] = currentline[3].split("\r")[0];
 		  tenures.push(innerobj);
 		  obj["tenures"] = tenures;
-
-		  result.push(obj);
+		  if(found == false){
+		  	result.push(obj);
+		  }
 	    }
 	    lineNumber++;
 
@@ -66,20 +87,29 @@ function getEmiSchemesOnAmount(json,param){
 	/*var jp = require('jsonpath');
 	console.log(json);
 	var result = jp.query(json, '$.[*].tenures[?(@.minimum_amount>=1000)]');*/
-	var filteredresult = [];
+	var filtered = [];
 	for(var i=0;i<result_g.length;++i){
 		var obj = result_g[i];
 		var innerobj = obj["tenures"];
 		//console.log("inner obj="+innerobj[0]["minimum_amount"] +" param amount =  "+param.amount);
-
-		if(parseInt(innerobj[0]["minimum_amount"]) >= parseInt(param.amount)){
-			filteredresult.push(obj);
+		var newObj = {};
+		var filteredresult = [];
+		for(var j=0;j<obj["tenures"].length;++j){
+			if(parseInt(innerobj[j]["minimum_amount"]) >= parseInt(param.amount)){
+				filteredresult.push(innerobj[j]);
+			}
 		}
+		if(filteredresult.length >= 1){
+			newObj["bank"] = obj["bank"];
+			newObj["tenures"] = filteredresult;
+ 			filtered.push(newObj);
+ 		}
+		
 
 	}
 
 	//console.log("After filter "+JSON.stringify(filteredresult));
-	return JSON.stringify(filteredresult);
+	return JSON.stringify(filtered);
 }
 //var json;
 function getHome(req,resp,json){
