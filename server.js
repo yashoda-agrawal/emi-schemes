@@ -17,7 +17,6 @@ function getJson(){
 		  //console.log(currentline);
 		  obj["bank"] = currentline[0];
 		  var tenures = [];
-		  //for(var j=0;j<lines[1].length/3;j++){
 		  var innerobj = {};
 		  innerobj["months"] = currentline[1];
 		  innerobj["rate"] = currentline[2];
@@ -102,21 +101,24 @@ function get405(req,resp){
 
 http.createServer(function (req, res) {
    var query = url.parse(req.url,true).query;
-   //console.log(JSON.stringify(query));
+   var regex = new RegExp('\/emi-schemes\?');
+   //console.log("<<<<<<====>>>>>"+req.url);
+   //console.log("====>>>>>"+regex.test(req.url));
    var json = getJson();
    switch(req.method){
    	case "GET":
    		if(req.url === '/'){
    			getHome(req,res,json);
-   		}/*else if(req.url === '/emi-schemes'){
+   		}else if(regex.test(req.url) == true){
    			console.log("emi schemes "+req.url);
-   		}*/else{
-   			//console.log("emi schemes "+req.url);
    			var emi_schemes = getEmiSchemesOnAmount(json,query);
    			//console.log(emi_schemes);
    			res.writeHead(200,{"Content-Type": "application/json"});
 			res.write(emi_schemes);
 			res.end();
+
+   		}else{
+			get404(req,res);
    		}
    		break;
    	case "POST":
